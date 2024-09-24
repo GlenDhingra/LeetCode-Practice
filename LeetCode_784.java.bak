@@ -1,0 +1,29 @@
+class Solution 
+{
+    public List<String> letterCasePermutation(String s) 
+    {
+        List<String> res = new ArrayList<>();
+        backtrack( res , s , "",0 );
+        return res;
+    }
+    public void backtrack( List<String> res , String s , String curr ,int itr)
+    {
+        if( curr.length() == s.length() )
+        {
+            res.add( curr );
+            return;
+        }
+        for( int i = itr ; i < s.length() ; i++ )
+        {
+            if( Character.isLetter( s.charAt(i) ))
+            {
+                backtrack( res , s , curr + Character.toLowerCase(s.charAt(i)),i+1 );
+                backtrack( res , s , curr + Character.toUpperCase(s.charAt(i)),i+1 );
+            }
+            else
+            {
+                backtrack( res , s , curr + s.charAt(i),i+1 );
+            }
+        }
+    }
+}

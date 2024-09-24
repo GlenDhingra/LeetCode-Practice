@@ -1,0 +1,41 @@
+class CoinChange1
+{
+	public static void main(String args[]){
+		int[] coins = new int[]{1,2,3};
+		int target = 5;
+
+		int[][] dp = new int[coins.length + 1][target + 1];
+
+		for( int i = 0 ; i < dp.length ; i++ ){
+			for( int j = 0 ; j < dp[0].length ; j++ ){
+				if( j == 0 ){
+					dp[i][j] = 1;
+				}				
+				else if( i == 0 ){
+					dp[i][j] = 0;
+				}
+				else if( coins[i-1] <= j ){
+					dp[i][j] = dp[i-1][j] + dp[i][ j - coins[i-1] ];
+				}
+				else{
+					dp[i][j] = dp[i-1][j];
+				}
+			}
+		}
+		for( int i = 0 ; i < dp.length ; i++ ){
+			for( int j = 0 ; j < dp[0].length ; j++ ){
+				System.out.print(dp[i][j]);
+			}
+			System.out.println();
+		}
+	}
+}
+
+/*
+  0 1 2 3 4 5
+0 1 0 0 0 0 0
+1 1 1 1 1 1 1
+2 1 1 2 2 3 3
+3 1 1 2 3 4 5
+
+*/

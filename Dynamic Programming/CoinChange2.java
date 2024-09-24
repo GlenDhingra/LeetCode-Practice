@@ -1,0 +1,41 @@
+class CoinChange2
+{
+	public static void main(String args[]){
+		int[] arr = new int[]{1,2,3};
+		int target = 5;
+		
+		int[][] dp = new int[arr.length+1][target+1];
+
+		for( int i = 0 ; i <= arr.length ; i++ ){
+			for( int j = 0 ; j <= target ; j++ ){
+				if( j == 0 ){
+					dp[i][j] = 0;
+				} else if( i == 0 ){
+					dp[i][j] = Integer.MAX_VALUE;
+				} else if( j >= arr[i-1] ){
+					dp[i][j] = Math.min( dp[i][j-arr[i-1]] + 1, dp[i-1][j] );
+				} else {
+					dp[i][j] = dp[i-1][j];
+				}
+			}
+		}
+		for( int i = 0 ; i <= arr.length ; i++ ){
+			for( int j = 0 ; j <= target ; j++ ){
+				System.out.print(dp[i][j] + "\t");
+			}
+			System.out.println();
+		}
+
+	}
+}
+
+
+/*
+
+	0	1	2	3	4	5
+0	0	9	9	9	9	9	
+1	0	1	2	3	4	5			
+2	0	1	1	2			
+3	0							
+
+*/
