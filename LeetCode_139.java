@@ -1,33 +1,19 @@
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
-        StringBuilder sb = new StringBuilder(s);
-        return helper(sb, wordDict, 0);
-    }
-    public boolean helper( StringBuilder sb, List<String> wordDict, int flag ){
-        if(sb.length() == 0) return true;
-        for( int i = 0 ; i < wordDict.size() ; i++ ){
-            String curr = wordDict.get(i);
-
-            if(sb.indexOf(curr) == 0){
-                StringBuilder sb1 = new StringBuilder(sb);
-                boolean result = helper(sb1.delete(0, curr.length()), wordDict, flag);
-                if( result ){
-                    flag = 1;
-                    break;
+        boolean[] arr = new boolean[s.length()];
+        int i = s.length()-1;
+        while( i >= 0 ){
+            String s1 = s.substring(i, s.length());
+            for( int j = 0 ; j < wordDict.size() ; j++ ){
+                if( s1.indexOf(wordDict.get(j)) == 0 ){
+                    
+                    if( i+wordDict.get(j).length() >= arr.length || arr[i+wordDict.get(j).length()] == true ){
+                        arr[i] = true;
+                    }
                 }
             }
+            i--;
         }
-        return flag == 1;
+        return arr[0];
     }
 }
-/*
-leetcode
-curr=leet
-s1=leet
-
-code
-curr=code
-
-
-
-*/
