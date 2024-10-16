@@ -1,34 +1,22 @@
 class Solution {
-    public String minRemoveToMakeValid(String s) 
-    {
-        StringBuilder sb = new StringBuilder(s);
+    public String minRemoveToMakeValid(String s) {
         Stack<Integer> stack = new Stack<>();
-        int index = 0;
-        
-        for( int i = 0 ; i < s.length() ; i++ )
-        {
-            if( s.charAt(i) == '(' || s.charAt(i) == ')' )
-            {
-                if( s.charAt(i) == '(' )
-                {
-                    stack.push(index); 
-                }
-                else if( s.charAt(i) == ')' )
-                {
-                    if( stack.isEmpty() )
-                    {
-                        sb.deleteCharAt(index);           
-                        continue;   //Will not increment index
-                                    //index is used to point at '(' which has no closing ')'
-                    }
-                    stack.pop();
-                }    
+        Stack<Character> stack2 = new Stack<>();
+        for( int i = 0 ; i < s.length() ; i++ ){
+            if( s.charAt(i) == '(' ){
+                stack.push(i);
             }
-            index++;
-            
+            else if( s.charAt(i) == ')' ){
+                if( !stack.isEmpty() && s.charAt(stack.peek()) == '(' ){
+                    stack.pop();
+                }
+                else{
+                    stack.push(i);
+                }
+            }
         }
-        while( !stack.isEmpty() )
-        {
+        StringBuilder sb = new StringBuilder(s);
+        while( !stack.isEmpty() ){
             sb.deleteCharAt(stack.pop());
         }
         return sb.toString();
