@@ -1,38 +1,23 @@
-class Solution 
-{
-    public int lengthOfLongestSubstring(String s) 
-    {
-        HashSet<Character> set = new HashSet<>();
-        int max = 0;
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        int maxLength = 0;
         int i = 0;
         int j = 0;
-        
-        while( j < s.length() )
-        {
-            if( !set.contains(s.charAt(j)) )
-            {
+
+        while( j < s.length() ){
+            if( !set.contains(s.charAt(j)) ){
                 set.add( s.charAt(j) );
                 j++;
+                maxLength = Math.max( j - i, maxLength );
             }
-            else
-            {
-                max = Math.max( j - i , max );
-                while( s.charAt(i) != s.charAt(j) )
-                {
-                    set.remove( s.charAt(i) );
-                    i++;
-                }
+            else{
                 set.remove( s.charAt(i) );
                 i++;
             }
         }
-        max = Math.max( j - i , max );
-        return max;
+        return maxLength;
     }
 }
 /*
-Sliding Window Problem
-Add elements of j to a set
-if an element already present in the set is encountered then
-remove all elements from the set at i till the duplicate of element at j is not found
 */
